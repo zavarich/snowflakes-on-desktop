@@ -1,0 +1,30 @@
+.titlebar {
+  -webkit-app-region: drag;
+
+  display: flex;
+    align-items: center; justify-content: center;
+
+  width: 100%; height: max-content;
+    padding: 0 7px; margin-bottom: 20px;
+
+  font-size: 15pt;
+
+  & > span { -webkit-app-region: drag; }
+  & > button {
+    position: relative;
+      bottom: none;
+
+    display: flex;
+      align-items: center;
+
+    width: max-content;
+      padding: 5px 7px; border: 0; margin: 0;
+
+    background: none; color: #fff;
+
+    transition: .2s all;
+  }
+  & > button:hover {
+    background: #f00; filter: none;
+  }
+}

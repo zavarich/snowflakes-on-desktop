@@ -1,0 +1,51 @@
+{
+  "name": "snowflakes",
+  "version": "0.2.19",
+  "main": "index.js",
+  "author": "zavarich.ru",
+  "description": "Decorate your desktop with snowflakes",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "snow.zavarich.ru",
+    "icon": "ico/icon.ico",
+    "productName": "Snowflakes",
+    "directories": {
+      "output": "./_dist"
+    },
+    "files": [
+      "index.js",
+      "pages/*",
+      "code/*",
+      "code/settings/index/*",
+      "code/settings/titlebar/*",
+      "ico/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "ico/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "ico/icon.ico",
+      "uninstallerIcon": "ico/icon.ico",
+      "installerHeaderIcon": "ico/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

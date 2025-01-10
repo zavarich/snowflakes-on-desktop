@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки</title>
+
+    <link rel="stylesheet" href="../code/settings/index/i.css">
+    <link rel="stylesheet" href="../code/settings/index/social.css">
+    <link rel="stylesheet" href="../code/settings/titlebar/tb.css">
+</head>
+<body>
+    <div class="titlebar">
+        <span>Настройки</span>
+        <button onclick="closeWindow()">✖</button>
+    </div>
+    <div class="content">
+        <span>Количество снежинок: (1-10000)</span>
+        <input type="text" id="snowflakeCount" placeholder="1-10000">
+    </div>
+    <div class="content">
+        <span>Выбрать экран:</span>
+        <select id="monitorSelect" name="monitorSelect">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+    <span style="display: none;" id="isSave">Сохранено</span>
+    <div class="social">
+        <img src="../ico/icon-telegram.png" alt="telegram">
+        <img src="../ico/icon-steam.png" alt="steam">
+        <img src="../ico/icon-discord.png" alt="discord">
+    </div>
+    <button onclick="saveSettings()">Сохранить</button>
+    <script src="../code/settings/titlebar/tb.js"></script>
+    <script src="../code/settings/index/social.js"></script>
+</body>
+</html>

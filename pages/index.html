@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Snowflakes</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0); /* Прозрачный фон */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="snowCanvas"></canvas>
+    <script>
+        const { ipcRenderer } = require('electron');
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Устанавливаем размеры canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Массив для хранения снежинок
+        let snowflakes = [];
+        let numberOfSnowflakes = 100;
+
+        // Функция для создания снежинки
+        function createSnowflake() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 2,
+                speedY: Math.random() * 1 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.5, // Случайное горизонтальное движение
+                rotation: Math.random() * Math.PI * 2, // Начальный угол вращения
+                rotationSpeed: (Math.random() - 0.5) * 0.05 // Скорость вращения
+            };
+        }
+
+        // Создаем снежинки
+        function initializeSnowflakes(count) {
+            snowflakes = [];
+            for (let i = 0; i < count; i++) {
+                snowflakes.push(createSnowflake());
+            }
+        }
+
+        initializeSnowflakes(numberOfSnowflakes);
+
+        // Функция для рисования снежинок
+        function drawSnowflake(snowflake) {
+            ctx.save();
+            ctx.translate(snowflake.x, snowflake.y);
+            ctx.rotate(snowflake.rotation);
+            ctx.beginPath();
+            ctx.arc(0, 0, snowflake.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        // Функция для обновления позиции снежинок
+        function updateSnowflakes() {
+            for (let i = 0; i < snowflakes.length; i++) {
+                snowflakes[i].y += snowflakes[i].speedY;
+                snowflakes[i].x += snowflakes[i].speedX;
+                snowflakes[i].rotation += snowflakes[i].rotationSpeed;
+
+                // Если снежинка вышла за пределы экрана, перемещаем ее наверх
+                if (snowflakes[i].y > canvas.height) {
+                    snowflakes[i].y = 0;
+                    snowflakes[i].x = Math.random() * canvas.width;
+                }
+
+                // Если снежинка вышла за пределы экрана по горизонтали, перемещаем ее на противоположную сторону
+                if (snowflakes[i].x > canvas.width || snowflakes[i].x < 0) {
+                    snowflakes[i].x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        // Функция для анимации
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < snowflakes.length; i++) {
+                drawSnowflake(snowflakes[i]);
+            }
+
+            updateSnowflakes();
+
+            requestAnimationFrame(animate);
+        }
+
+        // Запускаем анимацию
+        animate();
+
+        // Обработчик события изменения размера окна
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Обработчик события обновления количества снежинок
+        ipcRenderer.on('update-snowflake-count', (event, count) => {
+            numberOfSnowflakes = count;
+            initializeSnowflakes(numberOfSnowflakes);
+        });
+    </script>
+</body>
+</html>
