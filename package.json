@@ -1,6 +1,6 @@
 {
   "name": "snowflakes",
-  "version": "0.2.21",
+  "version": "0.3.0",
   "main": "index.js",
   "author": "zavarich.ru",
   "description": "Decorate your desktop with snowflakes",

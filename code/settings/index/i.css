@@ -21,7 +21,7 @@ span {
   background: #111; color: #fff;
 }
 
-input[type="text"] {
+input[type="number"] {
   width: 30%;
     padding: 4px 6px; border: none;
 
@@ -79,4 +79,53 @@ select {
     border: 0;
 
   cursor: pointer;
+}
+select:disabled { cursor: no-drop; }
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  margin: 0;
+}
+
+.checkmark {
+  box-sizing: content-box; display: flex;
+  justify-content: center; align-items: center;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  background-color: #eee;
+}
+
+input[type="checkbox"] ~ .checkmark {
+  background-color: #ccc;
+}
+
+input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  display: none;
+  margin: 0 2.1px 1.9px 0;
+}
+
+input[type="checkbox"]:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
